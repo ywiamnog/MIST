@@ -405,6 +405,7 @@ class Analyzer:
             "window_range": None,
             "global_z_score_mean": None,
             "global_z_score_std": None,
+            "use_n4_bias_correction": None,
             "median_image_size": None,
             "mist_version": metadata.version("mist-medical"),
         }
@@ -434,11 +435,15 @@ class Analyzer:
                 "global_z_score_std": float(
                     ct_normalization_parameters["ct_global_z_score_std"]
                 ),
+                "use_n4_bias_correction": bool(False),
             }
             self.config.update(configuration_with_ct_parameters)
         else:
             configuration_no_ct_parameters = {
                 "modality": self.dataset_information["modality"],
+                "use_n4_bias_correction": bool(
+                    self.mist_arguments.use_n4_bias_correction
+                ),
             }
             self.config.update(configuration_no_ct_parameters)
 
